@@ -75,7 +75,9 @@ export function getAllPostIds() {
  * 根据ID获取文章完整数据(含HTML内容)
  */
 export async function getPostData(id: string): Promise<Post> {
-  const fullPath = path.join(postsDirectory, `${id}.md`);
+    // 解码ID，处理中文文件名
+  const decodedId = decodeURIComponent(id);
+  const fullPath = path.join(postsDirectory, `${decodedId}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
 
   // 使用gray-matter解析front matter
